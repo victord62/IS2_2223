@@ -3,4 +3,12 @@
   <groupId>es.unican.practica3</groupId>
   <artifactId>SegurosGUI</artifactId>
   <version>1.0</version>
+  
+  <dependencies>
+    <dependency>
+      <groupId>es.unican.practica3</groupId>
+      <artifactId>SegurosCommon</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
 </project>

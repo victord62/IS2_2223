@@ -3,4 +3,59 @@
   <groupId>es.unican.practica3</groupId>
   <artifactId>SegurosMain</artifactId>
   <version>1.0</version>
+
+  <build>
+	  <plugins>  
+  		  <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-assembly-plugin</artifactId>
+			  <version>3.4.2</version>
+			  <configuration>
+				  <descriptorRefs>
+					  <descriptorRef>jar-with-dependencies</descriptorRef>
+				  </descriptorRefs>
+				  <archive>
+					  <manifest>
+						  <mainClass>es.unican.practica3.Runner</mainClass>
+					  </manifest>
+				  </archive>
+			  </configuration>
+			  <executions>
+				  <execution>
+					  <id>make-assembly</id>
+					  <phase>package</phase>
+					  <goals>
+						  <goal>single</goal>
+					  </goals>
+				  </execution>
+			  </executions>
+		  </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+    <dependency>
+      <groupId>es.unican.practica3</groupId>
+      <artifactId>SegurosBusiness</artifactId>
+      <version>1.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>es.unican.practica3</groupId>
+      <artifactId>SegurosCommon</artifactId>
+      <version>1.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>es.unican.practica3</groupId>
+      <artifactId>SegurosDAO</artifactId>
+      <version>1.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>es.unican.practica3</groupId>
+      <artifactId>SegurosGUI</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
 </project>
