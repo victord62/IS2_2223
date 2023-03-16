@@ -7,8 +7,8 @@
   <dependencies>
     <dependency>
       <groupId>es.unican.is2</groupId>
- 	 <artifactId>SegurosCommon</artifactId>
- 	 <version>1.0</version>
+      <artifactId>SegurosCommon</artifactId>
+      <version>1.0</version>
     </dependency>
   </dependencies>
 </project>
