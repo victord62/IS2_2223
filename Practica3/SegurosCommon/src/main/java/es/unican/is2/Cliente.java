@@ -1,4 +1,4 @@
-package es.unican.practica3;
+package es.unican.is2;
 
 
 import java.util.LinkedList;
@@ -95,7 +95,19 @@ public class Cliente {
      * todos los seguros a su nombre
      */
     public double totalSeguros() {
-    	return 0;
+    	// TODO
+    	double PrecioTotal = 0;
+    	
+    	// se suma el precio de todos los seguros
+    	for (int i = 0; i < seguros.size(); i++) {
+    		PrecioTotal = PrecioTotal + seguros.get(i).precio();
+    	}
+    	
+    	// se aplica el descuento por minsuvalia
+    	if (minusvalia == true) {
+    		PrecioTotal = PrecioTotal - (PrecioTotal * 0.25);
+    	}
+    	
+    	return PrecioTotal;
     }
-
 }

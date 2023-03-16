@@ -1,8 +1,11 @@
-package es.unican.practica3;
+package es.unican.is2;
 
 
 
 import java.util.List;
+
+import es.unican.is2.Cliente;
+import es.unican.is2.IClientesDAO;
 
 
 
