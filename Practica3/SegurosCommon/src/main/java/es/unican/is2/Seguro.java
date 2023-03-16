@@ -1,4 +1,4 @@
-package es.unican.practica3;
+package es.unican.is2;
 
 
 
@@ -19,12 +19,12 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlType(name = "Seguro")
 public class Seguro {
 	
-	private static final double PORCENTAJE_TRAMO_1 = 0.95;
-	private static final double PORCENTAJE_TRAMO_2 = 0.80;
-	private static final int INICIO_TRAMO_1= 90;
-	private static final int FIN_TRAMO_1=110;
-	private static final double DESCUENTO_PRIMER_ANHO = 0.8;
-	private static final double DESCUENTO_SEGUNDO_ANHO = 0.9;
+	private static final double PORCENTAJE_TRAMO_1 = 0.05;
+	private static final double PORCENTAJE_TRAMO_2 = 0.2;
+	private static final int INICIO_TRAMO_1 = 90;
+	private static final int FIN_TRAMO_1 =110;
+	private static final double DESCUENTO_PRIMER_ANHO = 0.2;
+	private static final double DESCUENTO_SEGUNDO_ANHO = 0.1;
 	
     
     @XmlAttribute(required = true)
@@ -92,7 +92,35 @@ public class Seguro {
      * @return
      */
     public double precio() {
-    	return 0;
+    	// TODO
+    	double PrecioCalculado = 0.0;
+    	
+    	// se calcula el precio base
+    	if (cobertura.equals(Cobertura.TERCEROS)) {
+    		PrecioCalculado = 400.0;
+    	} else if (cobertura.equals(Cobertura.TERCEROSLUNAS)) {
+    		PrecioCalculado = 600.0;
+    	} else if (cobertura.equals(Cobertura.TODORIESGO)) {
+    		PrecioCalculado = 1000.0;
+    	}
+    	
+    	// se aplica el incremento de precio por potencia
+    	if ((potencia >= INICIO_TRAMO_1) && (potencia <= FIN_TRAMO_1)) {
+    		PrecioCalculado = PrecioCalculado + (PrecioCalculado * PORCENTAJE_TRAMO_1);
+    	} else if (potencia > 110) {
+    		PrecioCalculado = PrecioCalculado + (PrecioCalculado * PORCENTAJE_TRAMO_2);
+    	}
+    	
+    	// se aplica el descuento por tiempo de contratacion
+    	LocalDate fechaActual = LocalDate.now();
+    	LocalDate fechaSeguro = fechaContratacion;
+    	if (fechaActual.compareTo(fechaSeguro.plusYears(1)) < 0) {
+    		PrecioCalculado = PrecioCalculado - (PrecioCalculado * DESCUENTO_PRIMER_ANHO);	
+    	} else if (fechaActual.compareTo(fechaSeguro.plusYears(1)) < 0) {
+    		PrecioCalculado = PrecioCalculado - (PrecioCalculado * DESCUENTO_SEGUNDO_ANHO);
+    	}
+    	
+    	return PrecioCalculado;
     }
 
 }

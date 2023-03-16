@@ -1,4 +1,4 @@
-package es.unican.practica3;
+package es.unican.is2;
 
 
 @SuppressWarnings("serial")

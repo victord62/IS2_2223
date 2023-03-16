@@ -1,4 +1,4 @@
-package es.unican.practica3;
+package es.unican.is2;
 import javax.xml.bind.annotation.XmlEnum;
 
 /**
@@ -6,8 +6,6 @@ import javax.xml.bind.annotation.XmlEnum;
  */
 @XmlEnum
 public enum Cobertura {
-	
 	TERCEROS, TODORIESGO, TERCEROSLUNAS;
-    
-
+		
 }

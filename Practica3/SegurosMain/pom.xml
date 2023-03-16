@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>es.unican.practica3</groupId>
+  <groupId>es.unican.is2</groupId>
   <artifactId>SegurosMain</artifactId>
   <version>1.0</version>
 
@@ -16,7 +16,7 @@
 				  </descriptorRefs>
 				  <archive>
 					  <manifest>
-						  <mainClass>es.unican.practica3.Runner</mainClass>
+						  <mainClass>es.unican.is2.Runner</mainClass>
 					  </manifest>
 				  </archive>
 			  </configuration>
@@ -35,25 +35,25 @@
   
   <dependencies>
     <dependency>
-      <groupId>es.unican.practica3</groupId>
+      <groupId>es.unican.is2</groupId>
       <artifactId>SegurosBusiness</artifactId>
       <version>1.0</version>
     </dependency>
     
     <dependency>
-      <groupId>es.unican.practica3</groupId>
+      <groupId>es.unican.is2</groupId>
       <artifactId>SegurosCommon</artifactId>
       <version>1.0</version>
     </dependency>
     
     <dependency>
-      <groupId>es.unican.practica3</groupId>
+      <groupId>es.unican.is2</groupId>
       <artifactId>SegurosDAO</artifactId>
       <version>1.0</version>
     </dependency>
     
     <dependency>
-      <groupId>es.unican.practica3</groupId>
+      <groupId>es.unican.is2</groupId>
       <artifactId>SegurosGUI</artifactId>
       <version>1.0</version>
     </dependency>
