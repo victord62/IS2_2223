@@ -22,7 +22,7 @@ public class Seguro {
 	private static final double PORCENTAJE_TRAMO_1 = 0.05;
 	private static final double PORCENTAJE_TRAMO_2 = 0.2;
 	private static final int INICIO_TRAMO_1 = 90;
-	private static final int FIN_TRAMO_1 =110;
+	private static final int FIN_TRAMO_1 = 110;
 	private static final double DESCUENTO_PRIMER_ANHO = 0.2;
 	private static final double DESCUENTO_SEGUNDO_ANHO = 0.1;
 	
