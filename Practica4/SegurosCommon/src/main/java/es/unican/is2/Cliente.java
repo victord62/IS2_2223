@@ -58,7 +58,33 @@ public class Cliente {
         return nombre;
     }
 
-    /**
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((seguros == null) ? 0 : seguros.hashCode());
+		return result;
+	}
+
+    // nuevo: equals para comparar
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (seguros == null) {
+			if (other.seguros != null)
+				return false;
+		} else if (!seguros.equals(other.seguros))
+			return false;
+		return true;
+	}
+
+	/**
      * Define el valor de la propiedad nombre.  
      */
     public void setNombre(String value) {
