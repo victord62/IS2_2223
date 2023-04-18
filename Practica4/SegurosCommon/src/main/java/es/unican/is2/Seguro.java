@@ -40,7 +40,20 @@ public class Seguro {
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate fechaContratacion;
     
-    public Seguro() {}
+    public Seguro(Cobertura cobertura, LocalDate fechaContratacion) throws CoberturaNoValidaExcepcion, FechaNoValidaExcepcion {
+    	if (cobertura == null) {
+			throw new CoberturaNoValidaExcepcion();
+			
+		} else {
+			LocalDate fechaActual = LocalDate.now();
+			if (fechaActual.compareTo(fechaContratacion) < 0) {
+				throw new FechaNoValidaExcepcion();
+			} else {
+				this.cobertura = cobertura;
+		    	this.fechaContratacion = fechaContratacion;
+			}
+		}
+    }
 
 	/**
 	 * Retorna la matr�cula del coche 
@@ -66,9 +79,14 @@ public class Seguro {
 
 	/**
 	 * Define el valor para la cobertura
+	 * @throws CoberturaNoValidaExcepcion 
 	 */
-	public void setCobertura(Cobertura cobertura) {
-		this.cobertura = cobertura;
+	public void setCobertura(Cobertura cobertura) throws CoberturaNoValidaExcepcion {
+		if (cobertura == null) {
+			throw new CoberturaNoValidaExcepcion();
+		} else {
+			this.cobertura = cobertura;
+		}
 	}
 
 
@@ -82,25 +100,31 @@ public class Seguro {
 
     /**
      * Define el valor de la potencia.
+     * @throws PotenciaNoValidaExcepcion 
      */
-    public void setPotencia(int value) {
-        this.potencia = value;
+    public void setPotencia(int value) throws PotenciaNoValidaExcepcion {
+        if (value <= 0) {
+        	throw new PotenciaNoValidaExcepcion();
+        } else {
+        	this.potencia = value;
+        }
     }
     
     /**
      * Retorna el precio del seguro
      * @return
+     * @throws PrecioIncorrectoExcepcion 
      */
-    public double precio() {
+    public double precio() throws PrecioIncorrectoExcepcion {
     	// TODO
     	double PrecioCalculado = 0.0;
     	
     	// se calcula el precio base
-    	if (cobertura.equals(Cobertura.TERCEROS)) {
+    	if (cobertura == Cobertura.TERCEROS) {
     		PrecioCalculado = 400.0;
-    	} else if (cobertura.equals(Cobertura.TERCEROSLUNAS)) {
+    	} else if (cobertura == Cobertura.TERCEROSLUNAS) {
     		PrecioCalculado = 600.0;
-    	} else if (cobertura.equals(Cobertura.TODORIESGO)) {
+    	} else if (cobertura == Cobertura.TODORIESGO) {
     		PrecioCalculado = 1000.0;
     	}
     	
@@ -116,11 +140,19 @@ public class Seguro {
     	LocalDate fechaSeguro = fechaContratacion;
     	if (fechaActual.compareTo(fechaSeguro.plusYears(1)) < 0) {
     		PrecioCalculado = PrecioCalculado - (PrecioCalculado * DESCUENTO_PRIMER_ANHO);	
-    	} else if (fechaActual.compareTo(fechaSeguro.plusYears(1)) < 0) {
+    	} else if (fechaActual.compareTo(fechaSeguro.plusYears(2)) < 0) {
     		PrecioCalculado = PrecioCalculado - (PrecioCalculado * DESCUENTO_SEGUNDO_ANHO);
+    	}
+    	
+    	// se comprueba que el precio resultante sea valido
+    	if (PrecioCalculado <= 0) {
+    		throw new PrecioIncorrectoExcepcion();
     	}
     	
     	return PrecioCalculado;
     }
 
 }
+
+
+

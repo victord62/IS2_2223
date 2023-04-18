@@ -37,9 +37,6 @@ public class Cliente {
      * Retorna los seguros del cliente 
      */
     public List<Seguro> getSeguros() {
-        if (seguros == null) {
-        	seguros = new LinkedList<Seguro>();
-        }
         return seguros;
     }
     
@@ -57,38 +54,18 @@ public class Cliente {
     public String getNombre() {
         return nombre;
     }
-
-    @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((seguros == null) ? 0 : seguros.hashCode());
-		return result;
-	}
-
-    // nuevo: equals para comparar
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (seguros == null) {
-			if (other.seguros != null)
-				return false;
-		} else if (!seguros.equals(other.seguros))
-			return false;
-		return true;
-	}
-
+    
 	/**
      * Define el valor de la propiedad nombre.  
+	 * @throws NombreNoValidoExcepcion 
      */
-    public void setNombre(String value) {
-        this.nombre = value;
+    public void setNombre(String value) throws NombreNoValidoExcepcion {
+    	if (value == "" || value == null) {
+    		throw new NombreNoValidoExcepcion();
+    	} else {
+    		this.nombre = value;
+    	}
+        
     }
 
     /**
@@ -100,9 +77,14 @@ public class Cliente {
 
     /**
      * Define el valor de la propiedad dni.
+     * @throws DniNoValidoExcepcion 
      */
-    public void setDni(String value) {
-        this.dni = value;
+    public void setDni(String value) throws DniNoValidoExcepcion {
+    	if (value == "" || value == null) {
+    		throw new DniNoValidoExcepcion();
+    	} else {
+    		this.dni = value;
+    	}
     }
     
     /**
@@ -119,10 +101,11 @@ public class Cliente {
     /**
      * Calcula el total a pagar por el cliente por 
      * todos los seguros a su nombre
+     * @throws PrecioIncorrectoExcepcion 
      */
-    public double totalSeguros() {
+    public double totalSeguros() throws PrecioIncorrectoExcepcion {
     	// TODO
-    	double PrecioTotal = 0;
+    	double PrecioTotal = 0.0;
     	
     	// se suma el precio de todos los seguros
     	for (int i = 0; i < seguros.size(); i++) {
@@ -130,8 +113,15 @@ public class Cliente {
     	}
     	
     	// se aplica el descuento por minsuvalia
-    	if (minusvalia == true) {
+    	if (minusvalia == true && seguros.isEmpty() == false) {
     		PrecioTotal = PrecioTotal - (PrecioTotal * 0.25);
+    	}
+    	
+    	// se comprueba que el precio resultante sea valido
+    	if (seguros.isEmpty() == false) {
+    		if (PrecioTotal <= 0) {
+        		throw new PrecioIncorrectoExcepcion();
+        	}
     	}
     	
     	return PrecioTotal;

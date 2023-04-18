@@ -10,5 +10,41 @@
       <artifactId>SegurosCommon</artifactId>
       <version>1.0</version>
     </dependency>
+     <dependency>
+      <groupId>es.unican.is2</groupId>
+      <artifactId>SegurosBusiness</artifactId>
+      <version>1.0</version>
+    </dependency>
+     <dependency>
+      <groupId>es.unican.is2</groupId>
+      <artifactId>SegurosDAO</artifactId>
+      <version>1.0</version>
+    </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/org.easytesting/fest-swing -->
+	<dependency>
+		<groupId>org.easytesting</groupId>
+		<artifactId>fest-swing</artifactId>
+		<version>1.2.1</version>
+	</dependency>
+
+	<!--  <dependency>
+		     <groupId>junit</groupId>
+			 <artifactId>junit</artifactId>
+			<version>4.12</version>
+		  </dependency>-->
+		
+	<dependency>
+	   <groupId>org.junit.jupiter</groupId>
+	   <artifactId>junit-jupiter</artifactId>
+	   <version>5.8.1</version>
+	   <scope>test</scope>
+	</dependency>
+	
   </dependencies>
+  
+  <!-- evita un warning -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>
