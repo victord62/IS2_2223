@@ -6,5 +6,5 @@
 .settings/
 bin/
 
-# Directorio de artefactosgeneradosen Maven
+# Directorio de artefactos generados en Maven
 target/
