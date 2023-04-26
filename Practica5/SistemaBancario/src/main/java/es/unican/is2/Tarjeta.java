@@ -1,9 +1,16 @@
 package es.unican.is2;
+
+
+//CCog resultante: 0
+//WMC resultante: 0
+//WMCn resultante: 0
 public abstract class Tarjeta {
 	
 	protected String mNumero, mTitular;		
 	protected CuentaAhorro mCuentaAsociada;
 
+	// CCog metodo: 0
+	// CC metodo: 0
 	public Tarjeta(String numero, String titular, CuentaAhorro c) {
 		mNumero = numero;
 		mTitular = titular;
@@ -16,6 +23,8 @@ public abstract class Tarjeta {
 	 * @throws saldoInsuficienteException
 	 * @throws datoErroneoException
 	 */
+	// CCog metodo: 0
+	// CC metodo: 0
 	public abstract void retirar(double x) throws saldoInsuficienteException, datoErroneoException;
 
 	/**
@@ -25,6 +34,8 @@ public abstract class Tarjeta {
 	 * @throws saldoInsuficienteException
 	 * @throws datoErroneoException
 	 */
+	// CCog metodo: 0
+	// CC metodo: 0
 	public abstract void pagoEnEstablecimiento(String datos, double x)
 			throws saldoInsuficienteException, datoErroneoException;
 	
