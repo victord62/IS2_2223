@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
+
+// CCog resultante: 7
+// WMC resultante: 18
+// WMCn resultante: 18 / 11 = 1,636
 public class CuentaAhorro extends Cuenta {
 
 	private List<Movimiento> mMovimientos;
@@ -11,6 +15,8 @@ public class CuentaAhorro extends Cuenta {
 	private LocalDate mFechaDeCaducidadTarjetaCredito;
 	public final double LIMITE_DEBITO = 1000;
 
+	// CCog metodo: 0
+	// CC metodo: 1
 	public CuentaAhorro(String numCuenta, LocalDate date, LocalDate date2) throws datoErroneoException {
 		super(numCuenta);
 		this.mFechaDeCaducidadTarjetaDebito = date;
@@ -18,71 +24,91 @@ public class CuentaAhorro extends Cuenta {
 		mMovimientos = new LinkedList<Movimiento>();
 	}
 
+	// CCog metodo: 1
+	// CC metodo: 2
 	public void ingresar(double importe) throws datoErroneoException {
-		if (importe <= 0) {
+		if (importe <= 0) {															// CCog: +1		// CC: +1
 			throw new datoErroneoException("No se puede ingresar una cantidad negativa");
 		}
 		
 		registrarMovimiento("Ingreso en efectivo", importe);
 	}
 
+	// CCog metodo: 2
+	// CC metodo: 3
 	public void retirar(double importe) throws saldoInsuficienteException, datoErroneoException {
-		if (importe <= 0) {
+		if (importe <= 0) {															// CCog: +1		// CC: +1
 			throw new datoErroneoException("No se puede retirar una cantidad negativa");
 		}
 		
-		if (getSaldo() < importe) {
+		if (getSaldo() < importe) {													// CCog: +1		// CC: +1
 			throw new saldoInsuficienteException("Saldo insuficiente");
 		}
 			
 		registrarMovimiento("Retirada de efectivo", -importe);
 	}
 
+	// CCog metodo: 1 
+	// CC metodo: 2
 	public void ingresar(String concepto, double importe) throws datoErroneoException {
-		if (importe <= 0) {
+		if (importe <= 0) {															// CCog: +1		// CC: +1
 			throw new datoErroneoException("No se puede ingresar una cantidad negativa");
 		}
 		
 		registrarMovimiento(concepto, importe);
 	}
 
+	// CCog metodo: 2
+	// CC metodo: 3
 	public void retirar(String concepto, double importe) throws saldoInsuficienteException, datoErroneoException {
-		if (getSaldo() < importe) {
+		if (getSaldo() < importe) {													// CCog: +1		// CC: +1
 			throw new saldoInsuficienteException("Saldo insuficiente");
 		}
 		
-		if (importe <= 0) {
+		if (importe <= 0) {															// CCog: +1		// CC: +1
 			throw new datoErroneoException("No se puede retirar una cantidad negativa");
 		}
 		
 		registrarMovimiento(concepto, -importe);
 	}
 
+	// CCog metodo: 1
+	// CC metodo: 2
 	public double getSaldo() {
 		double gasto = 0.0;
-		for (int i = 0; i < this.mMovimientos.size(); i++) {
+		for (int i = 0; i < this.mMovimientos.size(); i++) {						// CCog: +1		// CC: +1
 			Movimiento m = (Movimiento) mMovimientos.get(i);
 			gasto += m.getImporte();
 		}
 		return gasto;
 	}
 
+	// CCog metodo: 0
+	// CC metodo: 1
 	public void addMovimiento(Movimiento m) {
 		mMovimientos.add(m);
 	}
 
+	// CCog metodo: 0
+	// CC metodo: 1
 	public List<Movimiento> getMovimientos() {
 		return mMovimientos;
 	}
 
+	// CCog metodo: 0
+	// CC metodo: 1
 	public LocalDate getCaducidadDebito() {
 		return this.mFechaDeCaducidadTarjetaDebito;
 	}
 
+	// CCog metodo: 0
+	// CC metodo: 1
 	public LocalDate getCaducidadCredito() {
 		return this.mFechaDeCaducidadTarjetaCredito;
 	}
 	
+	// CCog metodo: 0
+	// CC metodo: 1
 	private void registrarMovimiento(String concepto, double importe) {
 		Movimiento m = new Movimiento();
 		LocalDateTime now = LocalDateTime.now();
