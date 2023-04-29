@@ -4,8 +4,8 @@ import java.util.List;
 
 
 // CCog resultante: 7
-// WMC resultante: 4
-// WMCn resultante: 4 / 10 = 0,4 
+// WMC resultante: 14
+// WMCn resultante: 14 / 10 = 1,4
 public class Cliente {
 	
 	public String nombre;
@@ -18,7 +18,7 @@ public class Cliente {
     private List<Cuenta> Cuentas = new LinkedList<Cuenta>();
 
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
  	public Cliente(String titular, String calle, String zip, String localidad, 
  			String telefono, String dni) {  
 		this.nombre = titular;
@@ -30,7 +30,7 @@ public class Cliente {
 	}
 	
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public void cambiaDireccion(String calle, String zip, String localidad) {
 		this.calle = calle;
 		this.zip = zip;
@@ -38,13 +38,13 @@ public class Cliente {
 	}
 	
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public void anhadeCuenta(Cuenta c) {
 		Cuentas.add(c);
 	}
 	
 	// CCog metodo: 7
-	// CC metodo: 4
+	// CC metodo: 5
 	public double getSaldoTotal() {
 		double total = 0.0;
 		for (Cuenta c: Cuentas) {										// CCog: +1		// CC: +1
@@ -60,37 +60,37 @@ public class Cliente {
 	}
 	
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public String getNombre() {
 		return nombre;
 	}
 
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public String getCalle() {
 		return calle;
 	}
 
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public String getZip() {
 		return zip;
 	}
 
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public String getLocalidad() {
 		return localidad;
 	}
 
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public String getTelefono() {
 		return telefono;
 	}
 
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public String getDni() {
 		return dni;
 	}	

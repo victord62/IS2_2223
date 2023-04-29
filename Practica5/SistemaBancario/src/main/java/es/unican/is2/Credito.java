@@ -6,8 +6,8 @@ import java.util.List;
 
 
 // CCog resultante: 8
-// WMC resultante: 6
-// WMCn resultante: 6 / 9 =  0,666
+// WMC resultante: 16
+// WMCn resultante: 16 / 9 =  1,777
 public class Credito extends Tarjeta {
 	
 	private double mCredito;
@@ -15,7 +15,7 @@ public class Credito extends Tarjeta {
 	private List<Movimiento> mhistoricoMovimientos;
 	
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public Credito(String numero, String titular, CuentaAhorro c, double credito) {
 		super(numero, titular, c);
 		mCredito = credito;
@@ -31,7 +31,7 @@ public class Credito extends Tarjeta {
 	 */
 	@Override
 	// CCog metodo: 3
-	// CC metodo: 2
+	// CC metodo: 3
 	public void retirar(double x) throws saldoInsuficienteException, datoErroneoException {
 		if (x<0)																// CCog: +1		// CC: +1
 			throw new datoErroneoException("No se puede retirar una cantidad negativa");
@@ -52,7 +52,7 @@ public class Credito extends Tarjeta {
 
 	@Override
 	// CCog metodo: 2
-	// CC metodo: 1
+	// CC metodo: 3
 	public void pagoEnEstablecimiento(String datos, double x) throws saldoInsuficienteException, datoErroneoException {
 		if (x<0)																// CCog: +1		// CC: +1
 			throw new datoErroneoException("No se puede retirar una cantidad negativa");
@@ -69,7 +69,7 @@ public class Credito extends Tarjeta {
 	}
 	
 	// CCog metodo: 1
-	// CC metodo: 1
+	// CC metodo: 2
     public double getGastosAcumulados() {
 		double r = 0.0;
 		for (int i = 0; i < this.mMovimientosMensuales.size(); i++) {			// CCog: +1		// CC: +1
@@ -80,7 +80,7 @@ public class Credito extends Tarjeta {
 	}
 	
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public LocalDate getCaducidadCredito() {
 		return this.mCuentaAsociada.getCaducidadCredito();
 	}
@@ -89,7 +89,7 @@ public class Credito extends Tarjeta {
 	 * M�todo que se invoca autom�ticamente el d�a 1 de cada mes
 	 */
 	// CCog metodo: 2
-	// CC metodo: 2
+	// CC metodo: 3
 	public void liquidar() {
 		Movimiento liq = new Movimiento();
 		LocalDateTime now = LocalDateTime.now();
@@ -110,19 +110,19 @@ public class Credito extends Tarjeta {
 	}
 
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public List<Movimiento> getMovimientosUltimoMes() {
 		return mMovimientosMensuales;
 	}
 	
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public Cuenta getCuentaAsociada() {
 		return mCuentaAsociada;
 	}
 	
 	// CCog metodo: 0
-	// CC metodo: 0
+	// CC metodo: 1
 	public List<Movimiento> getMovimientos() {
 		return mhistoricoMovimientos;
 	}
