@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Credito extends Tarjeta {
 	
+	private static final double COMISION = 0.05;
 	private double mCredito;
 	private List<Movimiento> mMovimientosMensuales;
 	private List<Movimiento> mhistoricoMovimientos;
@@ -21,52 +22,43 @@ public class Credito extends Tarjeta {
 
 	/**
 	 * Retirada de dinero en cajero con la tarjeta
-	 * @param x Cantidad a retirar. Se aplica una comisi�n del 5%.
+	 * @param importe Cantidad a retirar. Se aplica una comisi�n del 5%.
 	 * @throws saldoInsuficienteException
 	 * @throws datoErroneoException
 	 */
 	@Override
-	public void retirar(double x) throws saldoInsuficienteException, datoErroneoException {
-		if (x<0)
+	public void retirar(double importe) throws saldoInsuficienteException, datoErroneoException {
+		if (importe < 0) {
 			throw new datoErroneoException("No se puede retirar una cantidad negativa");
+		}
 		
-		Movimiento m = new Movimiento();
-		LocalDateTime now = LocalDateTime.now();
-		m.setF(now);
-		m.setC("Retirada en cajero autom�tico");
-		x += x * 0.05; // A�adimos una comisi�n de un 5%
-		m.setI(-x);
-		
-		if (getGastosAcumulados()+x > mCredito)
+		if (getGastosAcumulados() + importe > mCredito)
 			throw new saldoInsuficienteException("Cr�dito insuficiente");
 		else {
-			mMovimientosMensuales.add(m);
+			registrarMovimiento(null, importe);
 		}
 	}
 
 	@Override
-	public void pagoEnEstablecimiento(String datos, double x) throws saldoInsuficienteException, datoErroneoException {
-		if (x<0)
+	public void pagoEnEstablecimiento(String establecimiento, double importe) throws saldoInsuficienteException, datoErroneoException {
+		if (importe < 0) {
 			throw new datoErroneoException("No se puede retirar una cantidad negativa");
+		}
 		
-		if (getGastosAcumulados() + x > mCredito)
+		if (getGastosAcumulados() + importe > mCredito) {
 			throw new saldoInsuficienteException("Saldo insuficiente");
+		}
 		
-		Movimiento m = new Movimiento();
-		LocalDateTime now = LocalDateTime.now();
-		m.setF(now);
-		m.setC("Compra a cr�dito en: " + datos);
-		m.setI(-x);
-		mMovimientosMensuales.add(m);
+		registrarMovimiento(establecimiento, importe);
 	}
 	
     public double getGastosAcumulados() {
-		double r = 0.0;
+		double gasto = 0.0;
 		for (int i = 0; i < this.mMovimientosMensuales.size(); i++) {
 			Movimiento m = (Movimiento) mMovimientosMensuales.get(i);
-			r += m.getI();
+			gasto += m.getImporte();
 		}
-		return -r;
+		return -gasto;
 	}
 	
 	
@@ -80,16 +72,16 @@ public class Credito extends Tarjeta {
 	public void liquidar() {
 		Movimiento liq = new Movimiento();
 		LocalDateTime now = LocalDateTime.now();
-		liq.setF(now);
-		liq.setC("Liquidaci�n de operaciones tarjeta cr�dito");
-		double r = 0.0;
+		liq.setFecha(now);
+		liq.setConcepto("Liquidaci�n de operaciones tarjeta cr�dito");
+		double gasto = 0.0;
 		for (int i = 0; i < this.mMovimientosMensuales.size(); i++) {
 			Movimiento m = (Movimiento) mMovimientosMensuales.get(i);
-			r += m.getI();
+			gasto += m.getImporte();
 		}
-		liq.setI(r);
+		liq.setImporte(gasto);
 	
-		if (r != 0)
+		if (gasto != 0)
 			mCuentaAsociada.addMovimiento(liq);
 		
 		mhistoricoMovimientos.addAll(mMovimientosMensuales);
@@ -106,6 +98,22 @@ public class Credito extends Tarjeta {
 	
 	public List<Movimiento> getMovimientos() {
 		return mhistoricoMovimientos;
+	}
+	
+	private void registrarMovimiento(String establecimiento, double importe) {
+		Movimiento m = new Movimiento();
+		LocalDateTime now = LocalDateTime.now();
+		m.setFecha(now);
+		
+		if (establecimiento == null) {
+			m.setConcepto("Retirada en cajero autom�tico");
+			importe += importe * COMISION;
+		} else {
+			m.setConcepto("Compra a cr�dito en: " + establecimiento);
+		}
+		
+		m.setImporte(-importe);
+		mMovimientosMensuales.add(m);
 	}
 
 }

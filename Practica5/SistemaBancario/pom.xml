@@ -4,6 +4,15 @@
   <artifactId>SistemaBancario</artifactId>
   <version>1.0</version>
   
+  <dependencies>
+    <dependency>
+	   <groupId>org.junit.jupiter</groupId>
+	   <artifactId>junit-jupiter</artifactId>
+	   <version>5.8.1</version>
+	   <scope>test</scope>
+	</dependency>
+  </dependencies>
+  
   <!-- evita un warning -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

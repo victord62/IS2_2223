@@ -1,9 +1,9 @@
 package es.unican.is2;
 
 
-//CCog resultante: 0
-//WMC resultante: 3
-//WMCn resultante: 3 / 3 = 1,0
+// CCog resultante: 0
+// WMC resultante: 3
+// WMCn resultante: 3 / 3 = 1,0
 public abstract class Tarjeta {
 	
 	protected String mNumero, mTitular;		

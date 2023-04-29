@@ -10,21 +10,21 @@ public class Debito extends Tarjeta {
 	}
 	
 	@Override
-	public void retirar(double x) throws saldoInsuficienteException, datoErroneoException {
-		if (saldoDiarioDisponible<x) {
+	public void retirar(double importe) throws saldoInsuficienteException, datoErroneoException {
+		if (saldoDiarioDisponible<importe) {
 			throw new saldoInsuficienteException("Saldo insuficiente");
 		}
-		this.mCuentaAsociada.retirar("Retirada en cajero autom�tico", x);
-		saldoDiarioDisponible-=x;
+		this.mCuentaAsociada.retirar("Retirada en cajero autom�tico", importe);
+		saldoDiarioDisponible-=importe;
 	}
 	
 	@Override
-	public void pagoEnEstablecimiento(String datos, double x) throws saldoInsuficienteException, datoErroneoException {
-		if (saldoDiarioDisponible<x) {
+	public void pagoEnEstablecimiento(String establecimiento, double importe) throws saldoInsuficienteException, datoErroneoException {
+		if (saldoDiarioDisponible<importe) {
 			throw new saldoInsuficienteException("Saldo insuficiente");
 		}
-		this.mCuentaAsociada.retirar("Compra en : " + datos, x);
-		saldoDiarioDisponible-=x;
+		this.mCuentaAsociada.retirar("Compra en : " + establecimiento, importe);
+		saldoDiarioDisponible-=importe;
 	}
 	
 	public LocalDate getCaducidadDebito() {
@@ -35,7 +35,7 @@ public class Debito extends Tarjeta {
 	 * M�todo invocado autom�ticamente a las 00:00 de cada d�a
 	 */
 	public void restableceSaldo() {
-		saldoDiarioDisponible = mCuentaAsociada.getLimiteDebito();
+		saldoDiarioDisponible = mCuentaAsociada.LIMITE_DEBITO;
 	}
 	
 	public CuentaAhorro getCuentaAsociada() {

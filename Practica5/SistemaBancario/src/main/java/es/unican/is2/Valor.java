@@ -1,9 +1,9 @@
 package es.unican.is2;
 
 
-//CCog resultante: 1
-//WMC resultante: 7
-//WMCn resultante: 7 / 7 = 1,0
+// CCog resultante: 1
+// WMC resultante: 7
+// WMCn resultante: 7 / 7 = 1,0
 /**
  * Clase que representa un valor en bolsa (paquete de acciones). 
  * Cada valor contiene un n�mero de acciones 
