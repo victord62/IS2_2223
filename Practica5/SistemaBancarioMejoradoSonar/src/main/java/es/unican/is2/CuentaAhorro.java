@@ -13,11 +13,11 @@ public class CuentaAhorro extends Cuenta {
 	private List<Movimiento> mMovimientos;
 	private LocalDate mFechaDeCaducidadTarjetaDebito;
 	private LocalDate mFechaDeCaducidadTarjetaCredito;
-	public final double LIMITE_DEBITO = 1000;
+	public static final double LIMITE_DEBITO = 1000;
 
 	// CCog metodo: 0
 	// CC metodo: 1
-	public CuentaAhorro(String numCuenta, LocalDate date, LocalDate date2) throws datoErroneoException {
+	public CuentaAhorro(String numCuenta, LocalDate date, LocalDate date2) throws DatoErroneoException {
 		super(numCuenta);
 		this.mFechaDeCaducidadTarjetaDebito = date;
 		this.mFechaDeCaducidadTarjetaCredito = date2;
@@ -26,9 +26,9 @@ public class CuentaAhorro extends Cuenta {
 
 	// CCog metodo: 1
 	// CC metodo: 2
-	public void ingresar(double importe) throws datoErroneoException {
+	public void ingresar(double importe) throws DatoErroneoException {
 		if (importe <= 0) {															// CCog: +1		// CC: +1
-			throw new datoErroneoException("No se puede ingresar una cantidad negativa");
+			throw new DatoErroneoException("No se puede ingresar una cantidad negativa");
 		}
 		
 		registrarMovimiento("Ingreso en efectivo", importe);
@@ -36,13 +36,13 @@ public class CuentaAhorro extends Cuenta {
 
 	// CCog metodo: 2
 	// CC metodo: 3
-	public void retirar(double importe) throws saldoInsuficienteException, datoErroneoException {
+	public void retirar(double importe) throws SaldoInsuficienteException, DatoErroneoException {
 		if (importe <= 0) {															// CCog: +1		// CC: +1
-			throw new datoErroneoException("No se puede retirar una cantidad negativa");
+			throw new DatoErroneoException("No se puede retirar una cantidad negativa");
 		}
 		
 		if (getSaldo() < importe) {													// CCog: +1		// CC: +1
-			throw new saldoInsuficienteException("Saldo insuficiente");
+			throw new SaldoInsuficienteException("Saldo insuficiente");
 		}
 			
 		registrarMovimiento("Retirada de efectivo", -importe);
@@ -50,9 +50,9 @@ public class CuentaAhorro extends Cuenta {
 
 	// CCog metodo: 1 
 	// CC metodo: 2
-	public void ingresar(String concepto, double importe) throws datoErroneoException {
+	public void ingresar(String concepto, double importe) throws DatoErroneoException {
 		if (importe <= 0) {															// CCog: +1		// CC: +1
-			throw new datoErroneoException("No se puede ingresar una cantidad negativa");
+			throw new DatoErroneoException("No se puede ingresar una cantidad negativa");
 		}
 		
 		registrarMovimiento(concepto, importe);
@@ -60,13 +60,13 @@ public class CuentaAhorro extends Cuenta {
 
 	// CCog metodo: 2
 	// CC metodo: 3
-	public void retirar(String concepto, double importe) throws saldoInsuficienteException, datoErroneoException {
+	public void retirar(String concepto, double importe) throws SaldoInsuficienteException, DatoErroneoException {
 		if (getSaldo() < importe) {													// CCog: +1		// CC: +1
-			throw new saldoInsuficienteException("Saldo insuficiente");
+			throw new SaldoInsuficienteException("Saldo insuficiente");
 		}
 		
 		if (importe <= 0) {															// CCog: +1		// CC: +1
-			throw new datoErroneoException("No se puede retirar una cantidad negativa");
+			throw new DatoErroneoException("No se puede retirar una cantidad negativa");
 		}
 		
 		registrarMovimiento(concepto, -importe);
@@ -77,7 +77,7 @@ public class CuentaAhorro extends Cuenta {
 	public double getSaldo() {
 		double gasto = 0.0;
 		for (int i = 0; i < this.mMovimientos.size(); i++) {						// CCog: +1		// CC: +1
-			Movimiento m = (Movimiento) mMovimientos.get(i);
+			Movimiento m = mMovimientos.get(i);
 			gasto += m.getImporte();
 		}
 		return gasto;

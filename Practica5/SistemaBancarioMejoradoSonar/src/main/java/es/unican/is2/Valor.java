@@ -57,8 +57,15 @@ public class Valor {
 	// CC metodo: 1
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Valor)) {
+            return false;
+        }
+        
 		Valor other = (Valor)obj;
-		return (entidad.equals(other.entidad) & numAcciones==other.numAcciones);			// CCog: +1
+		return (entidad.equals(other.entidad) && numAcciones==other.numAcciones);			// CCog: +1
 	}
 	
 }

@@ -29,17 +29,17 @@ public class Credito extends Tarjeta {
 	/**
 	 * Retirada de dinero en cajero con la tarjeta
 	 * @param importe Cantidad a retirar. Se aplica una comisi�n del 5%.
-	 * @throws saldoInsuficienteException
-	 * @throws datoErroneoException
+	 * @throws SaldoInsuficienteException
+	 * @throws DatoErroneoException
 	 */
 	@Override
-	public void retirar(double importe) throws saldoInsuficienteException, datoErroneoException {
+	public void retirar(double importe) throws SaldoInsuficienteException, DatoErroneoException {
 		if (importe < 0) {															// CCog: +1		// CC: +1
-			throw new datoErroneoException("No se puede retirar una cantidad negativa");
+			throw new DatoErroneoException("No se puede retirar una cantidad negativa");
 		}
 		
 		if (getGastosAcumulados() + importe > mCredito)								// CCog: +1		// CC: +1
-			throw new saldoInsuficienteException("Cr�dito insuficiente");
+			throw new SaldoInsuficienteException("Cr�dito insuficiente");
 		else {																		// CCog: +1
 			registrarMovimiento(null, importe);
 		}
@@ -48,13 +48,13 @@ public class Credito extends Tarjeta {
 	// CCog metodo: 2
 	// CC metodo: 3
 	@Override
-	public void pagoEnEstablecimiento(String establecimiento, double importe) throws saldoInsuficienteException, datoErroneoException {
+	public void pagoEnEstablecimiento(String establecimiento, double importe) throws SaldoInsuficienteException, DatoErroneoException {
 		if (importe < 0) {															// CCog: +1		// CC: +1
-			throw new datoErroneoException("No se puede retirar una cantidad negativa");
+			throw new DatoErroneoException("No se puede retirar una cantidad negativa");
 		}
 		
 		if (getGastosAcumulados() + importe > mCredito) {							// CCog: +1		// CC: +1
-			throw new saldoInsuficienteException("Saldo insuficiente");
+			throw new SaldoInsuficienteException("Saldo insuficiente");
 		}
 		
 		registrarMovimiento(establecimiento, importe);
@@ -65,7 +65,7 @@ public class Credito extends Tarjeta {
     public double getGastosAcumulados() {
 		double gasto = 0.0;
 		for (int i = 0; i < this.mMovimientosMensuales.size(); i++) {				// CCog: +1		// CC: +1
-			Movimiento m = (Movimiento) mMovimientosMensuales.get(i);
+			Movimiento m = mMovimientosMensuales.get(i);
 			gasto += m.getImporte();
 		}
 		return -gasto;
@@ -89,7 +89,7 @@ public class Credito extends Tarjeta {
 		liq.setConcepto("Liquidaci�n de operaciones tarjeta cr�dito");
 		double gasto = 0.0;
 		for (int i = 0; i < this.mMovimientosMensuales.size(); i++) {				// CCog: +1		// CC: +1
-			Movimiento m = (Movimiento) mMovimientosMensuales.get(i);
+			Movimiento m = mMovimientosMensuales.get(i);
 			gasto += m.getImporte();
 		}
 		liq.setImporte(gasto);

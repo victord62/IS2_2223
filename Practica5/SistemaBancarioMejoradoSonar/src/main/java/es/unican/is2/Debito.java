@@ -18,9 +18,9 @@ public class Debito extends Tarjeta {
 	// CCog metodo: 1
 	// CC metodo: 2
 	@Override
-	public void retirar(double importe) throws saldoInsuficienteException, datoErroneoException {
+	public void retirar(double importe) {
 		if (saldoDiarioDisponible<importe) {										// CCog: +1		// CC: +1
-			throw new saldoInsuficienteException("Saldo insuficiente");
+			throw new SaldoInsuficienteException("Saldo insuficiente");
 		}
 		this.mCuentaAsociada.retirar("Retirada en cajero autom�tico", importe);
 		saldoDiarioDisponible-=importe;
@@ -29,9 +29,9 @@ public class Debito extends Tarjeta {
 	// CCog metodo: 1
 	// CC metodo: 2
 	@Override
-	public void pagoEnEstablecimiento(String establecimiento, double importe) throws saldoInsuficienteException, datoErroneoException {
+	public void pagoEnEstablecimiento(String establecimiento, double importe) {
 		if (saldoDiarioDisponible<importe) {										// CCog: +1		// CC: +1
-			throw new saldoInsuficienteException("Saldo insuficiente");
+			throw new SaldoInsuficienteException("Saldo insuficiente");
 		}
 		this.mCuentaAsociada.retirar("Compra en : " + establecimiento, importe);
 		saldoDiarioDisponible-=importe;
@@ -49,7 +49,7 @@ public class Debito extends Tarjeta {
 	 * M�todo invocado autom�ticamente a las 00:00 de cada d�a
 	 */
 	public void restableceSaldo() {
-		saldoDiarioDisponible = mCuentaAsociada.LIMITE_DEBITO;
+		saldoDiarioDisponible = CuentaAhorro.LIMITE_DEBITO;
 	}
 	
 	// CCog metodo: 0

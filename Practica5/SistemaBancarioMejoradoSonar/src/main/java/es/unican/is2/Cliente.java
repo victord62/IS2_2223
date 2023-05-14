@@ -13,7 +13,7 @@ public class Cliente {
 	private String dni;
 	private Direccion direccion;
 	
-    private List<Cuenta> Cuentas = new LinkedList<Cuenta>();
+    private List<Cuenta> cuentas = new LinkedList<Cuenta>();
     
 	// CCog metodo: 0
 	// CC metodo: 1
@@ -27,14 +27,14 @@ public class Cliente {
 	// CCog metodo: 0
 	// CC metodo: 1
 	public void anhadeCuenta(Cuenta c) {
-		Cuentas.add(c);
+		cuentas.add(c);
 	}
 	
 	// CCog metodo: 7
 	// CC metodo: 5
 	public double getSaldoTotal() {
 		double total = 0.0;
-		for (Cuenta c: Cuentas) {													// CCog: +1		// CC: +1
+		for (Cuenta c: cuentas) {													// CCog: +1		// CC: +1
 			if (c instanceof CuentaAhorro) {										// CCog: +2		// CC: +1
 				total += ((CuentaAhorro) c).getSaldo();
 			} else if (c instanceof CuentaValores)  {								// CCog: +1		// CC: +1
